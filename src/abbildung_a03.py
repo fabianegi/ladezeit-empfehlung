@@ -72,7 +72,10 @@ def erzeuge(tag: datetime = datetime(2026, 8, 14, tzinfo=TZ_DE), *, xml_path: Pa
     ax.plot(zeiten[:len(naiv)], naiv, color="#a03050", linewidth=1.4, linestyle=":",
             label="ENTSO-E, gemeldete Punkte naiv als lückenlose Viertelstunden gelesen", zorder=2)
     ax.axvline(zeiten[i_max], color="#a03050", linewidth=0.9, alpha=0.6)
-    ax.annotate(f"max. Abweichung ohne Rekonstruktion:\n{kennzahlen['max_fehler_ohne_rekonstruktion_MWh']:,.1f} MWh um {zeiten[i_max]:%H:%M} Uhr".replace(",", "X").replace(".", ",").replace("X", "."),
+    # Deutsches Zahlenformat nur auf die Zahl anwenden, sonst wird aus "max." ein "max,".
+    wert = (f"{kennzahlen['max_fehler_ohne_rekonstruktion_MWh']:,.1f}"
+            .replace(",", "X").replace(".", ",").replace("X", "."))
+    ax.annotate(f"max. Abweichung ohne Rekonstruktion:\n{wert} MWh um {zeiten[i_max]:%H:%M} Uhr",
                 xy=(zeiten[i_max], max(smard) * 0.30), xytext=(10, 0), textcoords="offset points",
                 fontsize=8.3, color="#a03050", va="center",
                 bbox=dict(boxstyle="round,pad=0.25", facecolor="white", edgecolor="none", alpha=0.9))
