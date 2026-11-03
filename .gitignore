@@ -1,0 +1,20 @@
+# Zugangsdaten
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Erzeugte Ausgaben
+ausgabe/
+data/analyse_datenqualitaet_*.json
+
+# ENTSO-E-Rohdaten (Weitergabe nicht freigegeben)
+data/*.xml
+
+# Betriebssystem und Editoren
+.DS_Store
+.idea/
+.vscode/

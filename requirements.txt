@@ -1,0 +1,10 @@
+# Kernlogik und Tests nutzen nur die Python-Standardbibliothek (Python 3.10 oder neuer).
+
+# Diagramme (--diagramm, abbildung_*.py)
+matplotlib>=3.7
+
+# Gehärtetes XML-Parsing für ENTSO-E-Antworten (optional, sonst Standardbibliothek)
+defusedxml>=0.7
+
+# Zeitzonendaten für zoneinfo unter Windows
+tzdata; sys_platform == "win32"
