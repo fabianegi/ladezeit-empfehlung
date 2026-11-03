@@ -139,6 +139,7 @@ def diagramm(ergebnis: emp.Empfehlung, ziel: Path, region: str,
     import matplotlib
     matplotlib.use("Agg")
     import matplotlib.dates as mdates
+    import matplotlib.patheffects as patheffects
     import matplotlib.pyplot as plt
 
     punkte = alle_punkte or ergebnis.verlauf
@@ -164,11 +165,13 @@ def diagramm(ergebnis: emp.Empfehlung, ziel: Path, region: str,
             return
         ax.axvspan(fenster.beginn, fenster.ende, color=farbe, alpha=0.22, lw=0, zorder=1)
         anker = fenster.beginn if seite == "links" else fenster.ende
+        # Weiße Kontur hält das Label lesbar, wenn es Kurve oder Abfahrtslinie kreuzt.
         ax.annotate(f"{name}: {fenster.anteil_prozent()} %",
                     xy=(anker, kopf * hoehe),
                     xytext=(-4 if seite == "links" else 4, 0), textcoords="offset points",
                     ha="right" if seite == "links" else "left", va="center",
-                    fontsize=8.5, color=farbe, weight="bold",
+                    fontsize=8.5, color=farbe, weight="bold", zorder=5,
+                    path_effects=[patheffects.withStroke(linewidth=3, foreground="white")],
                     arrowprops=dict(arrowstyle="-", color=farbe, lw=0.8,
                                     shrinkA=0, shrinkB=0, alpha=0.6))
 
