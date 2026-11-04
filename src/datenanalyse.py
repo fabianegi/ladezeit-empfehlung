@@ -240,6 +240,14 @@ def a03_gegenprobe(tag: datetime = ANALYSETAG, *, xml_text: str) -> dict:
     }
 
 
+def _de(wert: float | None, stellen: int = 1) -> str:
+    """Zahl im deutschen Format: Punkt als Tausender-, Komma als Dezimaltrennzeichen."""
+    if wert is None:
+        return "n. v."
+    text = f"{wert + 0.0:,.{stellen}f}"  # + 0.0 vermeidet die Ausgabe "-0,0"
+    return text.replace(",", "X").replace(".", ",").replace("X", ".")
+
+
 def bericht(ergebnis: dict) -> str:
     zeilen = []
     add = zeilen.append
@@ -256,34 +264,34 @@ def bericht(ergebnis: dict) -> str:
     add("2) Liegen die Day-Ahead-Prognosen regelzonenscharf vor?")
     for region, werte in ergebnis["regelzonen_verfuegbarkeit"].items():
         teile = "; ".join(
-            f"{k} {v:,.0f} MWh" if v is not None else f"{k} nicht geführt"
+            f"{k} {_de(v, 0)} MWh" if v is not None else f"{k} nicht geführt"
             for k, v in werte.items())
         add(f"   {region:<12} {teile}")
     add("")
     add("3) Interne Konsistenz: Gebotszone = Summe der Regelzonen + Luxemburg?")
     for spalte, k in ergebnis["interne_konsistenz"].items():
         add(f"   {spalte}")
-        add(f"      DE-LU {k['gebotszone_DE-LU']:>12,.1f} MWh")
-        add(f"      Summe Regelzonen {k['summe_4_regelzonen']:>10,.1f} MWh")
-        add(f"      Luxemburg (Creos) {k['luxemburg_creos']:>9,.1f} MWh")
-        add(f"      unerklärter Rest {k['unerklaerter_rest_MWh']:>10,.3f} MWh "
-            f"({k['unerklaerter_rest_prozent']} %)")
+        add(f"      DE-LU             {_de(k['gebotszone_DE-LU']):>11} MWh")
+        add(f"      Summe Regelzonen  {_de(k['summe_4_regelzonen']):>11} MWh")
+        add(f"      Luxemburg (Creos) {_de(k['luxemburg_creos']):>11} MWh")
+        add(f"      unerklärter Rest  {_de(k['unerklaerter_rest_MWh'], 3):>11} MWh "
+            f"({_de(k['unerklaerter_rest_prozent'], 4)} %)")
     if "quellenvergleich" in ergebnis:
         add("")
         add("4) Quellenvergleich SMARD und ENTSO-E (gleiche Größe, gleicher Zeitraum)")
         for name, v in ergebnis["quellenvergleich"].items():
             add(f"   {name}")
-            add(f"      Tagessumme SMARD {v['tagessumme_smard_MWh']:>12,.1f} MWh, "
-                f"ENTSO-E {v['tagessumme_entsoe_MWh']:>12,.1f} MWh")
-            add(f"      max. Abweichung je Viertelstunde {v['max_abweichung_MWh']:.4f} MWh, "
+            add(f"      Tagessumme SMARD {_de(v['tagessumme_smard_MWh']):>11} MWh, "
+                f"ENTSO-E {_de(v['tagessumme_entsoe_MWh']):>11} MWh")
+            add(f"      max. Abweichung je Viertelstunde {_de(v['max_abweichung_MWh'], 4)} MWh, "
                 f"deckungsgleich {v['identisch_im_rundungsrahmen']}/{v['viertelstunden']}")
     if "a03_gegenprobe" in ergebnis:
         g = ergebnis["a03_gegenprobe"]
         add("")
         add("5) Gegenprobe: was die A03-Rekonstruktion verhindert (Photovoltaik)")
         add(f"   ENTSO-E meldet {g['gemeldete_punkte']} statt {g['soll_punkte']} Punkte")
-        add(f"   ohne Rekonstruktion max. Fehler {g['max_fehler_ohne_rekonstruktion_MWh']:>10,.1f} MWh/Viertelstunde")
-        add(f"   mit  Rekonstruktion max. Fehler {g['max_fehler_mit_rekonstruktion_MWh']:>10,.4f} MWh/Viertelstunde")
+        add(f"   ohne Rekonstruktion max. Fehler {_de(g['max_fehler_ohne_rekonstruktion_MWh']):>10} MWh/Viertelstunde")
+        add(f"   mit  Rekonstruktion max. Fehler {_de(g['max_fehler_mit_rekonstruktion_MWh'], 4):>10} MWh/Viertelstunde")
         add(f"   größter Fehler bei {g['schlimmste_viertelstunde']}")
     return "\n".join(zeilen)
 
