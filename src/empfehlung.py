@@ -31,8 +31,8 @@ Grenzen der Kennzahl:
    Erneuerbare sind nicht enthalten, weil SMARD sie nicht als Day-Ahead-Prognose
    führt. Der Wert ist deshalb nicht mit dem gesamten EE-Anteil gleichzusetzen.
 2. Der Anteil kann über 100 % liegen (am 14.08.2026 bis 111,5 % um 13:45).
-   Das ist kein Fehler, sondern bedeutet, dass die prognostizierte Wind- und
-   Solarerzeugung die prognostizierte Netzlast übersteigt.
+   Dann übersteigt die prognostizierte Wind- und Solarerzeugung die
+   prognostizierte Netzlast.
 3. Sie beruht auf einer Prognose, nicht auf einer Messung. Sie gilt für DE-LU
    beziehungsweise die gewählte Regelzone und beschreibt keinen Strommix am
    Ladepunkt.
@@ -170,10 +170,9 @@ def empfehle(punkte: list[Prognosepunkt], abfahrtszeit: datetime,
              region: str = "DE-LU", datenstand: str | None = None) -> Empfehlung:
     """Berechnet Empfehlung und Alternative innerhalb der Nutzerrestriktion.
 
-    Der entscheidende Punkt gegenüber einem allgemeinen Grünstromsignal: Bewertet
-    wird nur der Zeitraum zwischen `fruehester_start` und `abfahrtszeit`.
-    Gemeldet wird also nicht das Tagesmaximum, sondern das Optimum innerhalb
-    dessen, was die ladende Person überhaupt nutzen kann.
+    Anders als bei einem allgemeinen Grünstromsignal wird nur der Zeitraum
+    zwischen `fruehester_start` und `abfahrtszeit` bewertet. Gemeldet wird das
+    Optimum innerhalb dessen, was die ladende Person überhaupt nutzen kann.
 
     Die Alternative ist bewusst überschneidungsfrei zum empfohlenen Fenster.
     Ein Fenster, das nur 15 Minuten verschoben ist, wäre formal zweitbester Wert,
@@ -239,10 +238,10 @@ def empfehle(punkte: list[Prognosepunkt], abfahrtszeit: datetime,
 # ---------------------------------------------------------------------------
 # Begründung
 # ---------------------------------------------------------------------------
-# Die Textbausteine folgen sechs Formulierungsregeln:
+# Die Textbausteine folgen fünf Formulierungsregeln:
 #   1. immer mit Nutzerbezug          4. keine Steuerungs-Sprache
 #   2. nie günstig/sparen/Tarif       5. Prognose als Prognose kennzeichnen
-#   3. keine CO2-Einsparung           6. Zahlen als Beispielwerte kennzeichnen
+#   3. keine CO2-Einsparung
 
 def begruende(empfohlen: Ladefenster, alternative: Ladefenster | None,
               abfahrtszeit: datetime, verfuegbar: list[Prognosepunkt],

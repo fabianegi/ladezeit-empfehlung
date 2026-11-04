@@ -33,8 +33,8 @@ DOWNLOAD = BASE + "/nip-download-manager/nip/download/market-data"
 # ---------------------------------------------------------------------------
 # Bezeichner exakt so, wie sie das SMARD-Download-Center verwendet.
 # "DE-LU" ist die Gebotszone (Marktgebiet ab 01.10.2018) und umfasst neben den
-# vier deutschen Regelzonen auch Luxemburg (Creos). Das ist keine Nebensache,
-# sondern erklärt die Differenz in der Konsistenzprüfung (siehe datenanalyse.py).
+# vier deutschen Regelzonen auch Luxemburg (Creos). Das erklärt die Differenz
+# zwischen DE-LU und der Summe der Regelzonen (siehe datenanalyse.py).
 REGIONS = {
     "DE-LU": "Marktgebiet DE/LU (Gebotszone)",
     "50Hertz": "Regelzone (DE): 50Hertz",
@@ -58,8 +58,8 @@ REGELZONEN_DE = ["50Hertz", "Amprion", "TenneT", "TransnetBW"]
 # Bundesnetzagentur, nicht aus einer Community-Dokumentation.
 # Reproduzierbar mit `verify_module_labels()` weiter unten.
 #
-# Diese Prüfung hat eine Fehlannahme korrigiert: 715 ist nicht Photovoltaik
-# (das ist 125), sondern "Sonstige".
+# Diese Prüfung hat eine Fehlannahme korrigiert: 715 bezeichnet "Sonstige",
+# Photovoltaik ist 125.
 MODULE_DAY_AHEAD = {
     2000122: "Gesamt",
     2005097: "Photovoltaik und Wind",
@@ -142,8 +142,7 @@ def parse_csv(text: str) -> tuple[list[str], list[dict]]:
 
     Deutsches Zahlenformat: Punkt als Tausender-, Komma als Dezimaltrennzeichen.
     Fehlende Werte kommen als "-" und werden zu None, nicht zu 0,0.
-    Diese Unterscheidung ist wesentlich: 0 MWh ist eine Aussage (nachts keine
-    Photovoltaik), ein fehlender Wert ist keine.
+    0 MWh ist eine Aussage (nachts keine Photovoltaik), ein fehlender Wert nicht.
     """
     lines = [line for line in text.splitlines() if line.strip()]
     if not lines:

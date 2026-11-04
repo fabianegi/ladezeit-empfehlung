@@ -130,11 +130,9 @@ def diagramm(ergebnis: emp.Empfehlung, ziel: Path, region: str,
              alle_punkte: list[emp.Prognosepunkt] | None = None) -> Path:
     """Ausgabe 4 als PNG: erwartete Erzeugung mit markiertem Fenster.
 
-    Gezeigt wird bewusst der gesamte Prognosehorizont, nicht nur der für die
-    Person nutzbare Ausschnitt: Erst im Tageskontext wird sichtbar, dass die
-    Empfehlung nicht das Tagesmaximum meldet, sondern das Optimum innerhalb der
-    Nutzerrestriktion. Das ist der Unterschied zu einem allgemeinen
-    Grünstromsignal.
+    Gezeigt wird der gesamte Prognosehorizont; die Zeit außerhalb der
+    Ladegelegenheit ist grau hinterlegt. So ist erkennbar, wo das Optimum im
+    nutzbaren Zeitraum liegt und wo das Tagesmaximum.
     """
     import matplotlib
     matplotlib.use("Agg")

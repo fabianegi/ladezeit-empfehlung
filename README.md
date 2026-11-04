@@ -87,8 +87,8 @@ mit unvollständigen Daten zu rechnen.
   Fenster gilt Summe(Wind + PV) / Summe(Netzlast), also ein lastgewichtetes Mittel. Die Kennzahl
   entspricht `1 - Residuallast / Netzlast`.
 - Bewertet werden nur Fenster zwischen frühestem Ladebeginn und Abfahrt (gleitendes Fenster in
-  15-Minuten-Schritten). Gemeldet wird also nicht das Tagesmaximum, sondern das beste Fenster,
-  das tatsächlich nutzbar ist. Bei Gleichstand gewinnt das früheste Fenster.
+  15-Minuten-Schritten). Gemeldet wird also das beste Fenster, das tatsächlich nutzbar ist; das
+  Tagesmaximum kann außerhalb liegen. Bei Gleichstand gewinnt das früheste Fenster.
 - Die Alternative ist das beste Fenster ohne Überschneidung mit der Empfehlung. Ein nur um
   15 Minuten verschobenes Fenster wäre keine echte Wahlmöglichkeit.
 - Hinweise erscheinen, wenn keine Alternative möglich ist, wenn der Anteil über 100 % liegt oder

@@ -213,7 +213,7 @@ def a03_gegenprobe(tag: datetime = ANALYSETAG, *, xml_text: str) -> dict:
     """Beziffert, welchen Fehler die A03-Rekonstruktion verhindert.
 
     Ohne Rekonstruktion entsteht ein Fehler in der Größenordnung der
-    Mittagsspitze. Die Rekonstruktion ist also notwendig, nicht kosmetisch.
+    Mittagsspitze.
     """
     ende = tag + timedelta(days=1)
     spalten, zeilen = _laden("DE-LU", tag)
