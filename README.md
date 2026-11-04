@@ -8,11 +8,11 @@ verständliche Empfehlung ableiten, wann ein Elektroauto vor der nächsten Fahrt
 sollte, damit möglichst viel Wind- und Solarstrom im Netz ist?
 
 Eingaben sind die geplante Abfahrtszeit und die benötigte Ladedauer. Das Programm bewertet jedes
-mögliche Ladefenster zwischen frühestem Ladebeginn und Abfahrt anhand der Day-Ahead-Prognosen der
-Bundesnetzagentur (SMARD). Es gibt das empfohlene Fenster, ein überschneidungsfreies alternatives
-Fenster, eine kurze Begründung und eine einfache Darstellung des erwarteten Verlaufs aus. Das
-Programm empfiehlt nur: Fahrzeug oder Wallbox werden nicht gesteuert, und es gibt keine Aussagen
-zu Strompreisen oder CO2-Einsparungen.
+mögliche Ladefenster zwischen frühestem Ladebeginn und Abfahrt anhand der Day-Ahead-Prognosen, die
+die Bundesnetzagentur auf SMARD.de veröffentlicht. Es gibt das empfohlene Fenster, ein
+überschneidungsfreies alternatives Fenster, eine kurze Begründung und eine einfache Darstellung
+des erwarteten Verlaufs aus. Das Programm empfiehlt nur: Fahrzeug oder Wallbox werden nicht
+gesteuert, und es gibt keine Aussagen zu Strompreisen oder CO2-Einsparungen.
 
 ![Day-Ahead-Prognose für DE-LU am 14. und 15.08.2026 mit empfohlenem Fenster und Alternative](docs/beispiel-diagramm.png)
 

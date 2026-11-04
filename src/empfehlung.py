@@ -22,8 +22,9 @@ prognostizierten Netzlast:
 
 Die Definition ist aus den SMARD-Reihen ableitbar: SMARD veröffentlicht die
 Residuallast, und es gilt nachprüfbar `Residuallast = Netzlast - (Wind + PV)`
-(eigener Abruf am 24.08.2026, maximale Abweichung 0,0 MWh je Viertelstunde).
-Der Anteil ist also identisch mit `1 - Residuallast / Netzlast`.
+(eigene Abrufe am 24.08. und 04.11.2026; Abweichung höchstens rund 0,01 MWh je
+Viertelstunde, also Rundung). Der Anteil ist also identisch mit
+`1 - Residuallast / Netzlast`.
 
 Grenzen der Kennzahl:
 
